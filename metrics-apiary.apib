@@ -1,0 +1,56 @@
+FORMAT: 1A
+
+# Metrics Dashboard API
+The metrics dashboard aims to provide continuous insight into products and processes. 
+The current focus is on two general classes of metrics. First is the *complexity metrics* and the second is *in-process metrics*.
+
+# Group Repository Details
+
+## Counters [/repos/{provider}/{owner}/{reponame}/{measurement}]
+The collection of repostory commits
+
+### Get Repos [GET]
++ Response 200 (application/json)
++ Header
+Location: /repos/LoyolaChicagoCS/klaufer/coursedescriptions/commits/
+Content-Length: 44
++ Body
+{ "commit": {
+      "author": {
+        "name": "author",
+        "email": "auhtor@luc.edu",
+        "date": "2015-02-15T09:33:30Z"
+      },
+      "committer": {
+        "name": "author",
+        "email": "author@luc.edu",
+        "date": "2015-02-15T09:33:30Z"
+      },
+      "message": "Initial commit"
+  }
+}
+
+
+## Counter [/repos/{provider}/{owner}/{reponame}/{measurementWithCondition}]
+A collection of repository commits with condition
++ Response 200 (application/json)
++ Header
+Location: /repos/LoyolaChicagoCS/klaufer/coursedescriptions/commits?since=2015-02-01T23:01:22Z
+Content-Length: 44
++ Body
+{ "id": 4164482,
+  "name": "django",
+  "full_name": "django/django",
+  "owner": {
+    "login": "django",
+    "id": 27804,
+    "avatar_url": "https://avatars.githubusercontent.com/u/27804?v=3",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/django",
+    "html_url": "https://github.com/django",
+    "followers_url": "https://api.github.com/users/django/followers",
+    "following_url": "https://api.github.com/users/django/following{/other_user}
+      }
+}
+
+# Group Issues Details
