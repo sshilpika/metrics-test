@@ -25,8 +25,8 @@ libraryDependencies ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.slf4j" % "slf4j-simple" % "1.7.10"//,
-  //"org.mindrot" % "jbcrypt" % "0.3m"
+  "org.slf4j" % "slf4j-simple" % "1.7.10",
+  "org.mindrot" % "jbcrypt" % "0.3m"
 )
 
 // IntelliJ Scala plugin reports false positive error here

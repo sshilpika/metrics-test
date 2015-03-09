@@ -1,6 +1,6 @@
 package edu.luc.etl.cs313.scala.metrics.dashboard.service
 
-//import org.mindrot.jbcrypt.BCrypt
+import org.mindrot.jbcrypt.BCrypt
 import org.specs2.matcher._//JsonMatchers
 import org.specs2.mutable._
 import dispatch._, Defaults._
@@ -29,7 +29,7 @@ class HttpSpec extends Specification with JsonMatchers with XmlMatchers {
 
     }
 
-   /* "retrieve an existing counter" in {
+   "retrieve an existing counter" in {
       //val hashed = BCrypt.hashpw(password, BCrypt.gensalt());
 
       val request = serviceRoot / "login" / "oauth" / accessToken
@@ -72,7 +72,7 @@ class HttpSpec extends Specification with JsonMatchers with XmlMatchers {
           //test must ==/(<Oauth><token_type></token_type><scope></scope><access_token></access_token></Oauth>)
       //oauthResponse === "    <OAuth>\n      <token_type>bearer</token_type>\n      <scope>repo,gist</scope>\n      <access_token>e72e16c7e42f292c6912e7710c838347ae178b4a</access_token>\n    </OAuth"
 
-    }*/
+    }
 
     /*"delete an existing counter" in {
       todo
