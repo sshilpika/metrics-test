@@ -43,34 +43,7 @@ class HttpSpec extends Specification with JsonMatchers with XmlMatchers {
       println("TEST "+test)
       println(bcryptHash)
       println(BCrypt.checkpw(test, bcryptHash)+" PASS")
-
-      //BCrypt.checkpw(test, bcryptHash) mustEqual true
-
-     /* response onComplete {
-        case Success(content) => {
-
-
-          val oauthResponse = response()
-          val test:String = oauthResponse(0).descendant(8).toString().trim
-          println(test +"INNNN")
-          println(accessToken)
-          //val test1 = "e72e16c7e42f292c6912e7710c838347ae178b4a"
-          val hashed = BCrypt.hashpw(accessToken.trim, BCrypt.gensalt())
-          println(BCrypt.checkpw(test, bcryptHash)+" "+test.equals(accessToken))
-          BCrypt.checkpw(test, bcryptHash) mustEqual true
-        }
-        case Failure(t) => {
-          println("An error has occured: " + t.getMessage)
-        }
-      }     */
-
       BCrypt.checkpw(test, bcryptHash) mustEqual true
-            //oauthResponse must ==/(<OAuth><token_type>bearer</token_type><scope>repo,gist</scope><access_token>e72e16c7e42f292c6912e7710c838347ae178b4a</access_token></OAuth>).ordered
-
-              //assert(test== true)
-            //val test = <Oauth><token_type></token_type><scope></scope><access_token></access_token></Oauth>
-          //test must ==/(<Oauth><token_type></token_type><scope></scope><access_token></access_token></Oauth>)
-      //oauthResponse === "    <OAuth>\n      <token_type>bearer</token_type>\n      <scope>repo,gist</scope>\n      <access_token>e72e16c7e42f292c6912e7710c838347ae178b4a</access_token>\n    </OAuth"
 
     }
 

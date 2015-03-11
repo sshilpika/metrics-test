@@ -10,10 +10,10 @@ import akka.util.Timeout
 import scala.concurrent.duration._
 import scala.util.Properties
 
-object Boot extends App {
+object Boot extends App{
 
   // we need an ActorSystem to host our application in
-  implicit val system = ActorSystem("metricdashboard")
+ implicit val system = ActorSystem("metricdashboard")
 
   // create and start our service actor
   val service = system.actorOf(Props[MyServiceActor], "metricdashboard-service")
