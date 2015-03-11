@@ -17,13 +17,15 @@ import spray.http._
 import MediaTypes._
 
 trait MetricDashboardService extends HttpService {
-  def onCompleteWithRepoErrorHandler[T](m: OnCompleteFutureMagnet[T])(body: PartialFunction[Try[T], Route]) =
+
+  // is the below code required
+  /*def onCompleteWithRepoErrorHandler[T](m: OnCompleteFutureMagnet[T])(body: PartialFunction[Try[T], Route]) =
     onComplete(m)(body orElse repoErrorHandler)
 
     def repoErrorHandler[T]: PartialFunction[Try[T], Route] = {
     case Success(_) => complete(StatusCodes.NotFound)
     case _ => complete(StatusCodes.InternalServerError)
-    }
+    }*/
 
   val myRoute =
     path("") {
