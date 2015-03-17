@@ -5,6 +5,8 @@ package luc.metrics.dashboard
  */
 
 
+import akka.util.Timeout
+import spray.httpx.SprayJsonSupport
 import spray.routing.directives.OnCompleteFutureMagnet
 import scala.util.{Success, Try}
 import scala.concurrent.ExecutionContext.Implicits._
@@ -15,8 +17,17 @@ import scala.util.{Try, Failure, Success}
 import spray.routing._
 import spray.http._
 import MediaTypes._
+import spray.json._
+import scala.concurrent.Future
 
-trait MetricDashboardService extends HttpService {
+import spray.can.Http
+import akka.io.IO
+import akka.pattern.ask
+import spray.http._
+import HttpMethods._
+import scala.concurrent.duration._
+
+trait MetricDashboardService extends HttpService with SprayJsonSupport with DefaultJsonProtocol{
 
   // is the below code required
   /*def onCompleteWithRepoErrorHandler[T](m: OnCompleteFutureMagnet[T])(body: PartialFunction[Try[T], Route]) =
@@ -26,6 +37,22 @@ trait MetricDashboardService extends HttpService {
     case Success(_) => complete(StatusCodes.NotFound)
     case _ => complete(StatusCodes.InternalServerError)
     }*/
+  //implicit val sprayCounterFormat = jsonFormat3(Counter.apply)
+  //case class httpResponse(future: Future[String])
+
+  //object MyJsonProtocol extends DefaultJsonProtocol {
+    //implicit val colorFormat = jsonFormat4(httpResponse)
+  //}
+  import spray.httpx.RequestBuilding._
+  def githubCall(user: String, repo: String, responseType:String): Future[HttpResponse] =  {
+    implicit val actor = ActorSystem("githubCall")
+    implicit val timeout = Timeout(5.seconds)
+    val response2: Future[HttpResponse] =
+      (IO(Http) ? Get("https://api.github.com/repos/"+user+"/"+repo+"/"+responseType)).mapTo[HttpResponse]
+
+    response2
+  }
+
 
   val myRoute =
     path("") {
@@ -45,7 +72,9 @@ trait MetricDashboardService extends HttpService {
         get{
 
           parameters('user, 'repo) { (user, repo) =>
-            onComplete(Program.testing(user,repo,"commits")) { complete(_) }
+            onComplete (githubCall(user,repo,"commits")){
+              complete(_)
+            }
           }
         }
       }~
@@ -53,7 +82,7 @@ trait MetricDashboardService extends HttpService {
         get{
 
           parameters('user, 'repo) { (user, repo) =>
-            onComplete(Program.testing(user,repo,"issues")) { complete(_) }
+            onComplete(githubCall(user,repo,"issues")) {complete(_)}
           }
 
         }
@@ -62,7 +91,7 @@ trait MetricDashboardService extends HttpService {
         get{
 
           parameters('user, 'repo) { (user, repo) =>
-            onComplete(Program.testing(user,repo,"languages")) { complete(_) }
+            onComplete(githubCall(user,repo,"languages")) { complete(_) }
           }
 
         }

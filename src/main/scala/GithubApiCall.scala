@@ -51,7 +51,13 @@ object Program {
 
     // send GET request with absolute URI
     val futureResponse = webClient.get ("https://api.github.com/repos/"+user+"/"+repo+"/"+requestType)
-
+    /*var result= "NIL"
+    // wait for Future to complete
+    futureResponse onComplete {
+    case Success (response) => result = response
+    case Failure (error) => result = "An error has occured: " + error.getMessage
+  }
+    result*/
     futureResponse
     //synchronized { futureResponse }
   }
