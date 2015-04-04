@@ -18,13 +18,16 @@ libraryDependencies ++= {
     "io.spray"            %%  "spray-testkit" % sprayV  % "test",
     "com.typesafe.akka"   %%  "akka-actor"    % akkaV,
     "com.typesafe.akka"   %%  "akka-testkit"  % akkaV   % "test",
-    "org.specs2"          %%  "specs2-core"   % "2.3.11" % "test"
+    "org.specs2"          %%  "specs2-core"   % "2.3.11" % "test",
+    "com.livestream"      %%  "scredis"       % "2.0.6",
+    "net.virtual-void" %%  "json-lenses" % "0.6.0"
   )
 }
 
 libraryDependencies ++= Seq(
   "net.debasishg" %% "redisclient" % "2.14",
-  "net.databinder.dispatch" %% "dispatch-core" % "0.11.2" % Test
+  "net.databinder.dispatch" %% "dispatch-core" % "0.11.2" % Test,
+  "commons-codec" % "commons-codec" % "1.9"
 )
 
 libraryDependencies ++= Seq(
