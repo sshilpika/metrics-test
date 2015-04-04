@@ -102,7 +102,7 @@ trait MetricDashboardService extends HttpService {
     val res2 = contents.map(x1 =>
 
 
-      x1.entity.data.asString.parseJson.asJsObject.getFields("name", "path", "size", "content").toString
+      x1.entity.data.asString.parseJson.asJsObject.fields.filter{case (s, v) => Set("name", "path", "size", "content").contains(s)}.toString
 
 
     )
