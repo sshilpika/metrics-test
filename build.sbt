@@ -2,7 +2,7 @@ name := "metrics-test"
 
 version := "0.1"
 
-scalaVersion := "2.11.4"
+scalaVersion := "2.11.6"
 
 resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases"
 
@@ -15,10 +15,10 @@ libraryDependencies ++= {
     "io.spray"            %%  "spray-client"  % sprayV,
     "io.spray"            %%  "spray-routing" % sprayV,
     "io.spray"            %%  "spray-json"    % sprayJsonV,
-    "io.spray"            %%  "spray-testkit" % sprayV  % "test",
+    "io.spray"            %%  "spray-testkit" % sprayV  % Test,
     "com.typesafe.akka"   %%  "akka-actor"    % akkaV,
-    "com.typesafe.akka"   %%  "akka-testkit"  % akkaV   % "test",
-    "org.specs2"          %%  "specs2-core"   % "2.3.11" % "test",
+    "com.typesafe.akka"   %%  "akka-testkit"  % akkaV   % Test,
+    "org.specs2"          %%  "specs2-core"   % "2.3.11" % Test,
     "com.livestream"      %%  "scredis"       % "2.0.6",
     "net.virtual-void" %%  "json-lenses" % "0.6.0"
   )

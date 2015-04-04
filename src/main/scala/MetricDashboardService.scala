@@ -35,7 +35,7 @@ import spray.httpx.SprayJsonSupport._
 import org.apache.commons.codec.binary.Base64
 import spray.json.lenses.JsonLenses._
 
-case class githubRepoContent( name:String, path:String, size:Int ,contents:String)
+case class githubRepoContent( name:String, path:String, size:Int ,content:String)
 case class Content(content:String)
 object RepoContentJsonSupport extends DefaultJsonProtocol with SprayJsonSupport{
   implicit val contentFormat = jsonFormat4(githubRepoContent)
@@ -85,9 +85,9 @@ trait MetricDashboardService extends HttpService {
   def githubCallToContents(user: String, repo: String, filePath:String): Future[String] =  {
     implicit val actor = ActorSystem("githubCallForContent")
     implicit val timeout = Timeout(15.seconds)
-    val contents = Future{
+    val contents = {
       //println("https://api.github.com/repos/"+user+"/"+repo+"/contents/"+filePath)
-      (IO(Http) ? Get("https://api.github.com/repos/"+user+"/"+repo+"/contents/"+filePath)).mapTo[HttpResponse]
+      (IO(Http) ? Get("https://api.github.com/repos/" + user + "/" + repo + "/contents/" + filePath)).mapTo[HttpResponse]
     }
     import RepoContentJsonSupport._
     /*val c = contents.flatMap(x => {x.flatMap(x1 => {
@@ -99,7 +99,13 @@ trait MetricDashboardService extends HttpService {
         Future{new String(Base64.decodeBase64(result.contents),"UTF-8")}
       })})*/
 
-    val res2 = contents.flatMap(x => {x.flatMap(x1 => {
+    val res2 = contents.map(x1 =>
+
+
+      x1.entity.data.asString.parseJson.asJsObject.getFields("name", "path", "size", "content").toString
+
+
+    )
 
       //val str = EntityUtils.toString(x1.entity)
      // val jsonJsVal = JsonParser(x1.entity.data.toString)//as[JsValue].extract[Content]('content / *)
@@ -109,12 +115,12 @@ trait MetricDashboardService extends HttpService {
       val authorNames = test.extract[String](allAuthors)
       //Future{jsonJsVal.toString}
       Future{authorNames}*/
-      Future{x1.entity.toString}
+
      // val jsonCode = jsonJsVal.as[gitH]
       //Future{new String(Base64.decodeBase64(jsonCode.toJson.convertTo[gitH].content),"UTF-8")}
       //Future{new String(Base64.decodeBase64(authorname),"UTF-8")}
-      })
-    })
+
+/*
 
     val url = new URI(Properties.envOrElse("REDISCLOUD_URL", "redis://localhost:6379"))
     val client = new Redis(url.getHost, url.getPort)
@@ -132,6 +138,8 @@ trait MetricDashboardService extends HttpService {
       a <- s
       if(a.isDefined)
     }yield a
+
+*/
 
     res2
 
