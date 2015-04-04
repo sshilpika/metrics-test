@@ -101,7 +101,7 @@ trait MetricDashboardService extends HttpService {
 
     val res2 = contents.flatMap(x => {x.flatMap(x1 => {
 
-      val str = EntityUtils.toString(x1.entity)
+      //val str = EntityUtils.toString(x1.entity)
      // val jsonJsVal = JsonParser(x1.entity.data.toString)//as[JsValue].extract[Content]('content / *)
       /*import gitFor._
       val test = x1.entity.toString.toJson
@@ -109,7 +109,7 @@ trait MetricDashboardService extends HttpService {
       val authorNames = test.extract[String](allAuthors)
       //Future{jsonJsVal.toString}
       Future{authorNames}*/
-      //Future{x1.entity.toString}
+      Future{x1.entity.toString}
      // val jsonCode = jsonJsVal.as[gitH]
       //Future{new String(Base64.decodeBase64(jsonCode.toJson.convertTo[gitH].content),"UTF-8")}
       //Future{new String(Base64.decodeBase64(authorname),"UTF-8")}
